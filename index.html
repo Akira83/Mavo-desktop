@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset = "UTF-8">
+      <title>Hello World!</title>
+      <link rel = "stylesheet" href = "./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+   </head>
+   
+   <body>
+      <div class = "container">
+         <h1>This page is using Bootstrap and jQuery!</h1>
+         <h3 id = "click-counter"></h3>
+         <button class = "btn btn-success" id = "countbtn">Click here</button>
+         <script src = "./view.js" ></script>
+
+      </div>
+      
+      
+
+      <!-- 3rd Party -->
+      <script src = "./node_modules/jquery/dist/jquery.js"></script>
+      <script>
+      	window.jQuery = window.$ = require('jquery');
+      </script>
+      <script src = "./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+      <script src = "./node_modules/underscore/underscore-min.js"></script>
+      <script src = "./node_modules/backbone/backbone-min.js"></script>
+      
+      
+      <script src = "./view.js"></script>
+      
+      
+      
+   </body>
+</html>

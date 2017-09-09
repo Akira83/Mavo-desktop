@@ -1,0 +1,27 @@
+{
+  "name": "mavo",
+  "version": "1.0.0",
+  "description": "Goal Model Analysis Tool",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akira83/Mavo-desktop.git"
+  },
+  "keywords": [
+    "mavo",
+    "goal",
+    "requirements"
+  ],
+  "author": "Marcel Akira Serikawa",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Akira83/Mavo-desktop/issues"
+  },
+  "homepage": "https://github.com/Akira83/Mavo-desktop#readme",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
