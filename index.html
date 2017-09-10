@@ -2,17 +2,21 @@
 <html>
    <head>
       <meta charset = "UTF-8">
-      <title>Hello World!</title>
+      <title>Goal Model Analysis Tool</title>
       <link rel = "stylesheet" href = "./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel = "stylesheet" href = "./css/joint.min.css" />
+      <link rel = "stylesheet" href = "./css/gmat.joint.css" />
+      
+      
    </head>
    
    <body>
       <div class = "container">
-         <h1>This page is using Bootstrap and jQuery!</h1>
-         <h3 id = "click-counter"></h3>
-         <button class = "btn btn-success" id = "countbtn">Click here</button>
-         <script src = "./view.js" ></script>
-
+      	<h3>Goal Model Analysis Tool</h3>
+      
+	      <div id="gmat-paper">
+	      
+	      </div>
       </div>
       
       
@@ -21,15 +25,27 @@
       <script src = "./node_modules/jquery/dist/jquery.js"></script>
       <script>
       	window.jQuery = window.$ = require('jquery');
+      	
+      	$(document).ready(function() {
+      		var canvas = $('#gmat-paper');
+      	    paper.setDimensions(canvas.width(), canvas.height());
+      	});
+      	
+      	jQuery(window).on('resize', function () {
+      	    var canvas = $('#gmat-paper');
+      	    paper.setDimensions(canvas.width(), canvas.height());
+      	  	location.reload(); 
+      	});
+      	
       </script>
       <script src = "./bower_components/bootstrap/dist/js/bootstrap.js"></script>
       <script src = "./node_modules/underscore/underscore-min.js"></script>
       <script src = "./node_modules/backbone/backbone-min.js"></script>
-      
-      
-      <script src = "./view.js"></script>
-      
-      
+      <script src = "./js/lodash.js"></script>
+      <script src = "./js/joint.min.js"></script>
+      <script src = "./js/gmat.joint.config.js"></script>
+      <script src = "./js/gmat.menu.rightclick.js"></script>
+
       
    </body>
 </html>

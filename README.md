@@ -1,2 +1,2 @@
 # Mavo-desktop
-Goal requirements analysis tool for desktop.
+Goal requirements analysis tool (GMAT) for desktop.

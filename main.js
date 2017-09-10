@@ -11,6 +11,12 @@ function createWindow() {
       protocol: 'file:',
       slashes: true
    }))
+   
+   win.isResizable(true);
+   win.focus();
+  
+   require('./js/gmat.menu.main')
 }
 
 app.on('ready', createWindow)
+
