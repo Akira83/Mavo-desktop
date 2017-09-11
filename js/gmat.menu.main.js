@@ -1,6 +1,10 @@
-const {Menu} = require('electron')
+const {Menu, BrowserWindow} = require('electron')
 const electron = require('electron')
 const app = electron.app
+
+//Calling render javascritp
+let window = BrowserWindow.getFocusedWindow()
+let contents = window.webContents
 
 const template = [
 	{
@@ -8,23 +12,20 @@ const template = [
 		submenu: [
 			{
 				label: 'New Model',
-				role:'new',
 				click: function() {
-                    console.log('New Model');
+		        	contents.executeJavaScript('MainMenu.btnClearAll()');
                 }
 			},
 			{
 				label: 'Save Model',
-				role:'save',
 				click:function() {
-                    console.log('Save Model');
+		        	contents.executeJavaScript('MainMenu.btnSave()');
                 }
 			},
 			{
 				label: 'Open Model',
-				role:'open',
 				click:function() {
-                    console.log('Open Model');
+		        	contents.executeJavaScript('MainMenu.btnLoad()');
                 }
 			}
 		]
@@ -33,28 +34,58 @@ const template = [
     label: 'Edit',
     submenu: [
       {
-        role: 'undo'
+        label: 'Undo',
+        click:function(){
+        	contents.executeJavaScript('MainMenu.btnUndo()');
+        }
       },
       {
-        role: 'redo'
+        label: 'Redo',
+        click:function(){
+        	contents.executeJavaScript('MainMenu.btnRedo()');
+        }
       },
       {
         type: 'separator'
       },
       {
-        role: 'cut'
+        label: 'Clear model',
+        click: function(){
+        	contents.executeJavaScript('App.graph.clear()');
+        }
       },
       {
-        role: 'copy'
+        label: 'Clear all labels',
+        click: function(){
+        	contents.executeJavaScript('MainMenu.btnClearAll()');
+        }
       },
       {
-        role: 'paste'
+        label: 'Clear all values',
+        click: function(){
+        	contents.executeJavaScript('MainMenu.btnClearElabel()');
+        }
       },
       {
-        role: 'delete'
+          type: 'separator'
       },
       {
-        role: 'selectall'
+    	  label: 'Increase font',
+    	  click: function(){
+          	contents.executeJavaScript('MainMenu.btnFntUp()');
+    	  }
+      },
+      {
+    	  label: 'Decrease font',
+    	  click: function(){
+          	contents.executeJavaScript('MainMenu.btnFntDown()');
+    	  }
+      },
+      {
+    	  label: 'Default font',
+    	  click: function(){
+          	contents.executeJavaScript('MainMenu.btnFnt()');
+    	  }
       }
     ]
   },
@@ -92,27 +123,56 @@ const template = [
       },
       {
         role: 'togglefullscreen'
+      },
+      {
+    	  label: 'View SVG',
+    	  click: function(){
+    		  contents.executeJavaScript('MainMenu.btnSVG()');
+    	  }
       }
+      
     ]
   },
   {
-    role: 'window',
-    submenu: [
-      {
-        role: 'minimize'
-      },
-      {
-        role: 'close'
-      }
-    ]
+	  label: 'Analysis',
+	  submenu: [
+		  {
+			  label: 'Single Solution',
+			  click () {
+				  
+			  }
+		  },
+		  {
+			  label: 'All Solutions',
+			  click(){
+				  
+			  }
+		  }
+	  ]
   },
   {
     role: 'help',
     submenu: [
       {
         label: 'Learn More',
-        click () { require('electron').shell.openExternal('http://electron.atom.io') }
-      }
+        click () { 
+        	require('electron').shell.openExternal('https://arxiv.org/pdf/1605.07767v3.pdf') 
+    	}
+      },
+      {
+          label: 'Legend',
+          click () { 
+        	  var url = require('url')
+        	  var path = require('path')
+        	  
+        	   winlegend = new BrowserWindow({width: 800, height: 600})
+        	   winlegend.loadURL(url.format ({
+        	      pathname: path.join(__dirname, 'legend.html'),
+        	      protocol: 'file:',
+        	      slashes: true
+        	   }))
+      	}
+      },
     ]
   }
 ]

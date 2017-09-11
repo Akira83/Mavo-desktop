@@ -14,7 +14,7 @@ function createWindow() {
    
    win.isResizable(true);
    win.focus();
-  
+   
    require('./js/gmat.menu.main')
 }
 
