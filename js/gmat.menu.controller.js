@@ -14,7 +14,6 @@ var MainMenu = {};
   
   MainMenu.btnClearAll = function(){
 	App.graph.clear();
-	App.elementCounter = 0;
   };
   
   MainMenu.btnClearElabel = function(){
