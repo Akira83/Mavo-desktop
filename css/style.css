@@ -36,6 +36,7 @@ body {
    position: absolute;
    left: 201px;
    right: 201px;
+   top:10px;
    bottom: 0;
    overflow: hidden;
    background-color: hsla(220,11%,97%,.95);
@@ -280,6 +281,19 @@ select > .select-placeholder {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+.element-inspector input[type="checkbox"] {
+  float:left;
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: 2px; 
+  overflow: hidden;
+}
+
 
 .cell-labels{
   margin: 0 6px 8px;
