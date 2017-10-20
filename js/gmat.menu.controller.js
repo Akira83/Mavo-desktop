@@ -92,3 +92,9 @@ var MainMenu = {};
 	  window.open("https://arxiv.org/pdf/1605.07767v3.pdf");
   };
   
+  MainMenu.runAnalysis = function(){
+	  
+	  console.log("Get model");
+	  console.log(JSON.stringify(App.graph));
+	  
+  }
