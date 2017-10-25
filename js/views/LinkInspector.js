@@ -11,15 +11,10 @@ var LinkInspector = Backbone.View.extend({
       '<option value=and>And-Decomposition</option>',
       '<option value=or>Or-Decomposition (Means-end)</option>',
     '</select>',
-    '<label id="title">May Annotation</label>',
-    '<input id="mavo" type="checkbox" value="M">',
     '<br>'
   ].join(''),
   neededbytemplate: [
     '<label id="title">NeededBy Relationship</label>',
-    '<br>',
-    '<label id="title">May Annotation</label>',
-    '<input id="mavo" type="checkbox" value="M">',
     '<br>'
   ].join(''),
   contributiontemplate: [
@@ -31,21 +26,14 @@ var LinkInspector = Backbone.View.extend({
       '<option value=helps>Helps</option>',
       '<option value=hurts>Hurts</option>',
     '</select>',
-    '<label id="title">May Annotation</label>',
-    '<input id="mavo" type="checkbox" value="M">', 
     '<br>'
   ].join(''),
   qualificationtemplate: [
     '<label id="title">Qualification Relationship</label>',
-    '<br>',
-    '<label id="title">May Annotation</label>',
-    '<input id="mavo" type="checkbox" value="M">',
+    '<br>'
   ].join(''),
   dependencytemplate: [
     '<label id="title">Dependency</label>',
-    '<br>',
-    '<label id="title">May Annotation</label>',
-    '<input id="mavo" type="checkbox" value="M">',
     '<br>'
   ].join(''),
   errortemplate: [
@@ -65,7 +53,6 @@ var LinkInspector = Backbone.View.extend({
 
   events: {
     'change .sublink-type': 'updateCell',
-    'change #mavo': 'addMavoAnnotation',
   },
 
   //Method to create the Link Inspector using the template.
@@ -109,10 +96,6 @@ var LinkInspector = Backbone.View.extend({
 	  }
     }
     
-    if(cell.attr(".mavo")=="M"){
-    	this.$('#mavo').attr("checked",true);
-    }
-
     cell.on('remove', function() {
       this.$el.html('');
     }, this);
@@ -196,12 +179,6 @@ var LinkInspector = Backbone.View.extend({
       link.label(0 ,{position: 0.5, attrs: {text: {text: link.prop("sublink-type")}}});
     }
     
-  },
-  addMavoAnnotation : function(){
-	  var link = this._cellView.model;
-	  if(this.$('#mavo')[0].checked){		  
-		  link.attr(".mavo","M");
-	  }
   },
   clear: function(){
     this.$el.html('');
