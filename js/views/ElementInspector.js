@@ -94,30 +94,28 @@ var ElementInspector = Backbone.View.extend({
 	  var cell = this._cellView.model;
 	  this.$('.sat-values').each(function(){
 		  if($(this).prop('checked')){
-			  if(cell.currentValues.indexOf($(this).val()) == -1){
-				  cell.currentValues.push($(this).val());
+			  if(cell.attr(".satvalue/values").indexOf($(this).val()) == -1){
+				  cell.attr(".satvalue/values").push($(this).val());
 			  }
 		  }else{
-			  if(cell.currentValues.indexOf($(this).val()) > -1){
+			  if(cell.attr(".satvalue/values").indexOf($(this).val()) > -1){
 				var removeItem = $(this).val();			
-				cell.currentValues.splice(cell.currentValues.indexOf(removeItem), 1);
+				cell.attr(".satvalue/values").splice(cell.attr(".satvalue/values").indexOf(removeItem), 1);
 			  }
 		  }
-	  })
-	  cell.propagate();
-	  cell.updateSiblings();
+	  });
   },
   updateMavo: function(){
 	  var cell = this._cellView.model;
 	  this.$('.mavo').each(function(){
 		  if($(this).prop('checked')){
-			  if(cell.mavo.indexOf($(this).val()) == -1){
-				  cell.mavo.push($(this).val());
+			  if(cell.attr(".mavo/annotation").indexOf($(this).val()) == -1){
+				  cell.attr(".mavo/annotation").push($(this).val());
 			  }
 		  }else{
-			  if(cell.mavo.indexOf($(this).val()) > -1){
+			  if(cell.attr(".mavo/annotation").indexOf($(this).val()) > -1){
 				var removeItem = $(this).val();			
-				cell.mavo.splice(cell.mavo.indexOf(removeItem), 1);
+				cell.attr(".mavo/annotation").splice(cell.attr(".mavo/annotation").indexOf(removeItem), 1);
 			  }
 		  }
 	  })

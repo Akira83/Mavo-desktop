@@ -152,7 +152,6 @@ var LinkInspector = Backbone.View.extend({
   		          console.log('Error, this should not happen');
   		        }  		  
 	  	  }
-
 	  });
     }
 
