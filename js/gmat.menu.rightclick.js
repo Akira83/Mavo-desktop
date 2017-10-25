@@ -1,4 +1,3 @@
- const {remote} = require('electron')
  const {Menu, MenuItem} = remote
 
  const menu = new Menu()
