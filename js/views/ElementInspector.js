@@ -64,18 +64,17 @@ var ElementInspector = Backbone.View.extend({
     
     //Initial Satisfaction values
     this.$('.sat-values').each(function(){
-    	if(cell.currentValues.indexOf($(this).val()) > -1){
+    	if(cell.attr(".satvalue/values").indexOf($(this).val()) > -1){
     		$(this).prop('checked', true);
     	}
     })
      
     //Initial MAVO annotations
     this.$('.mavo').each(function(){
-    	if(cell.mavo.indexOf($(this).val()) > -1){
+    	if(cell.attr(".mavo/annotation").indexOf($(this).val()) > -1){
     		$(this).prop('checked', true);
     	}
-    })
-    	
+    })    
   },
   changeName: function(event){
 	var ENTER_KEY = 13;

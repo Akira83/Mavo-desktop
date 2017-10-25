@@ -235,12 +235,32 @@ return;
 function drawDefaultLink(link, linktype){
 switch(linktype){
 	case "Refinement":
-		link.attr({
-		  '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
-		  '.marker-source': {'d': 'M 0 0'},
-		  '.marker-target': {stroke: '#000000', 'stroke-width': 1, "d": 'M 10 0 L 10 10 M 10 5 L 0 5' }
-		});
-		link.label(0 ,{position: 0.5, attrs: {text: {text: 'and'}}});
+		if(link.prop("sublink-type")){
+			var val = link.prop("sublink-type").split("|");
+		      if(val[0] == 'or'){
+				link.attr({
+				    '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
+					'.marker-source': {'d': 'M 0 0'},
+					'.marker-target': {stroke: '#000000', "d": 'M 10 0 L 0 5 L 10 10 z'}
+					  });
+				link.label(0 ,{position: 0.5, attrs: {text: {text: 'or'}}});	
+			  }else{
+		    	link.attr({
+		    		  '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
+		    		  '.marker-source': {'d': 'M 0 0'},
+		    		  '.marker-target': {stroke: '#000000', 'stroke-width': 1, "d": 'M 10 0 L 10 10 M 10 5 L 0 5' }
+		    		});
+	    		link.label(0 ,{position: 0.5, attrs: {text: {text: 'and'}}});
+			  }
+		}else{
+			link.attr({
+	    		  '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
+	    		  '.marker-source': {'d': 'M 0 0'},
+	    		  '.marker-target': {stroke: '#000000', 'stroke-width': 1, "d": 'M 10 0 L 10 10 M 10 5 L 0 5' }
+	    		});
+			link.label(0 ,{position: 0.5, attrs: {text: {text: 'and'}}});
+		}
+	      
 		break;
 	case "Qualification":
 		link.attr({

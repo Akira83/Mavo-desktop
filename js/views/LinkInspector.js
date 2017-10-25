@@ -100,11 +100,13 @@ var LinkInspector = Backbone.View.extend({
     // already intialized previously
     if (cell.prop("sublink-type")){
       var val = cell.prop("sublink-type").split("|");
-
-      // normal relation
-      if (val.length == 1){
-        this.$('.sublink-type').val(val[0]);
-      }
+      this.$('.sublink-type').val(val[0]);
+	  
+      if(val[0] == 'and'){
+    	  cell.label(0 ,{position: 0.5, attrs: {text: {text: 'and'}}});			
+	  }else if(val[0] == 'or'){
+		  cell.label(0 ,{position: 0.5, attrs: {text: {text: 'or'}}});
+	  }
     }
     
     if(cell.attr(".mavo")=="M"){
@@ -120,28 +122,38 @@ var LinkInspector = Backbone.View.extend({
   //Whenever something is changed in the inspector, make the corresponding change to the link in the model.
   updateCell: function() {
     var link = this._cellView.model;
-    this._cellView.model.prop("sublink-type", this.$('.sublink-type').val());
+    link.prop("sublink-type", this.$('.sublink-type').val());
     var linktype = link.attr(".link-type");
     if (linktype == "Refinement"){
-      if (this._cellView.model.prop("sublink-type") == 'and'){
-        link.attr({
-          '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
-          '.marker-source': {'d': 'M 0 0'},
-          '.marker-target': {stroke: '#000000', 'stroke-width': 1, "d": 'M 10 0 L 10 10 M 10 5 L 0 5' }
-        });
-        link.label(0 ,{position: 0.5, attrs: {text: {text: 'and'}}});
-      
-      }else if (this._cellView.model.prop("sublink-type") == 'or'){
-        link.attr({
-          '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
-          '.marker-source': {'d': 'M 0 0'},
-          '.marker-target': {stroke: '#000000', "d": 'M 10 0 L 0 5 L 10 10 z'}
-        });
-        link.label(0 ,{position: 0.5, attrs: {text: {text: 'or'}}});
-      }
-      else {
-        console.log('Error, this should not happen');
-      }
+	  //Select all refinement links from the target
+  	  var target = link.getTargetElement();
+  	  //Get all incoming links links
+  	  var links_inbound = App.graph.getConnectedLinks(target, {inbound: true});
+  	    links_inbound.forEach(function(inLink){
+	  	  if(inLink.attr(".link-type") == "Refinement"){
+	  		  	inLink.prop("sublink-type", this.$('.sublink-type').val());
+  		        if (inLink.prop("sublink-type") == 'and'){
+  		        	inLink.attr({
+  		            '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
+  		            '.marker-source': {'d': 'M 0 0'},
+  		            '.marker-target': {stroke: '#000000', 'stroke-width': 1, "d": 'M 10 0 L 10 10 M 10 5 L 0 5' }
+  		          });
+  		        	inLink.label(0 ,{position: 0.5, attrs: {text: {text: 'and'}}});
+  		        
+  		        }else if (inLink.prop("sublink-type") == 'or'){
+  		        	inLink.attr({
+  		            '.connection': {stroke: '#000000', 'stroke-dasharray': '0 0'},
+  		            '.marker-source': {'d': 'M 0 0'},
+  		            '.marker-target': {stroke: '#000000', "d": 'M 10 0 L 0 5 L 10 10 z'}
+  		          });
+  		        	inLink.label(0 ,{position: 0.5, attrs: {text: {text: 'or'}}});
+  		        }
+  		        else {
+  		          console.log('Error, this should not happen');
+  		        }  		  
+	  	  }
+
+	  });
     }
 
     else if (linktype == "Contribution"){
