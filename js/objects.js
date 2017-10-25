@@ -1,13 +1,12 @@
-function iStarModel(graph){
-	this.graph = graph;
+function iStarModel(){
 	this.links = [];
 	this.actors = [];
 	this.nodes = [];
 	
-	this.setModel = function(){
-		this.actors = this.getActors();
-		this.nodes = this.getNodes();
-		this.links = this.getLinks();
+	this.setModel = function(graph){
+		this.actors = this.getActors(graph);
+		this.nodes = this.getNodes(graph);
+		this.links = this.getLinks(graph);
 	};
 	
 	this.getModel = function(){
@@ -18,19 +17,19 @@ function iStarModel(graph){
 		return iModel;
 	}
 	
-	this.getLinks= function(){
+	this.getLinks= function(graph){
 		var links = [];
 		
-		for (var i = 0; i < this.graph.getLinks().length; i++){			
-			var current = this.graph.getLinks()[i];
+		for (var i = 0; i < graph.getLinks().length; i++){			
+			var current = graph.getLinks()[i];
 			var type = current.label(0).attrs.text.text.toUpperCase()
 			var source = "-";
 			var target = "-";
 
 			if (current.get("source").id)
-				source = this.graph.getCell(current.get("source").id).prop("elementid");
+				source = graph.getCell(current.get("source").id).prop("elementid");
 			if (current.get("target").id)
-				target = this.graph.getCell(current.get("target").id).prop("elementid");
+				target = graph.getCell(current.get("target").id).prop("elementid");
 			
 			var annotation = "none";
 			if(current.attr(".mavo")){
@@ -45,8 +44,8 @@ function iStarModel(graph){
 		return links;
 	}
 
-	this.getActors = function(){
-		var elements = this.graph.getElements();
+	this.getActors = function(graph){
+		var elements = graph.getElements();
 		
 		//Help variable to count the length of actors
 		var actorCounter = 0;
@@ -76,18 +75,19 @@ function iStarModel(graph){
 		return actorsList;
 	}
 	
-	this.getNodes = function(){
+	this.getNodes = function(graph){
 		var nodes = [];
 		var counter = 0;
-		for (var i = 0; i < this.graph.getElements().length; i++){		
-			if (!(this.graph.getElements()[i] instanceof joint.shapes.basic.Actor) && !(this.graph.getElements()[i] instanceof joint.shapes.basic.Actor2)){
+		var elements = graph.getElements();
+		for (var i = 0; i < elements.length; i++){		
+			if (!(elements[i] instanceof joint.shapes.basic.Actor) && !(elements[i] instanceof joint.shapes.basic.Actor2)){
 				
 				/**
 				 * NODE ACTOR ID
 				 */
 				var actorid = 'none';
-				if (this.graph.getElements()[i].get("parent")){
-					actorid = (this.graph.getCell(this.graph.getElements()[i].get("parent")).prop("elementid") || "-");
+				if (elements[i].get("parent")){
+					actorid = (graph.getCell(elements[i].get("parent")).prop("elementid") || "-");
 				}
 				
 				/**
@@ -99,19 +99,19 @@ function iStarModel(graph){
 					elementID = "0" + elementID;
 					}
 				//Adding the new id to the UI graph element
-				this.graph.getElements()[i].prop("elementid", elementID);
+				elements[i].prop("elementid", elementID);
 				
 				/**
 				 * NODE TYPE
 				 */
 				var elementType;
-				if (this.graph.getElements()[i] instanceof joint.shapes.basic.Goal)
+				if (elements[i] instanceof joint.shapes.basic.Goal)
 					elementType = "G";
-				else if (this.graph.getElements()[i] instanceof joint.shapes.basic.Task)
+				else if (elements[i] instanceof joint.shapes.basic.Task)
 					elementType = "T";
-				else if (this.graph.getElements()[i] instanceof joint.shapes.basic.Softgoal)
+				else if (elements[i] instanceof joint.shapes.basic.Softgoal)
 					elementType = "S";
-				else if (this.graph.getElements()[i] instanceof joint.shapes.basic.Resource)
+				else if (elements[i] instanceof joint.shapes.basic.Resource)
 					elementType = "R";
 				else
 					elementType = "I";
@@ -120,18 +120,18 @@ function iStarModel(graph){
 				/**
 				 * INITIAL VALUE
 				 */
-			  	var satValue = App.satvalues[this.graph.getElements()[i].attr(".satvalue/value")];
+			  	var satValue = App.satvalues[elements[i].attr(".satvalue/value")];
 			  	
 			  	/**
 			  	 * NODE NAME
 			  	 */
 			  	//Getting intentional element name
-				var name = this.graph.getElements()[i].attr(".name/text").replace(/\n/g, " ");
+				var name = elements[i].attr(".name/text").replace(/\n/g, " ");
 				
 				//Getting mavo annotations
-				var annotation = (this.graph.getElements()[i].attr(".mavo/text")||"");
+				var annotation = (elements[i].attr(".mavo/text")||"");
 								
-				var maxsize = (this.graph.getElements()[i].attr(".mavo/size") || "1");
+				var maxsize = (elements[i].attr(".mavo/size") || "1");
 				
 				/**
 				 * CREATING OBJECT

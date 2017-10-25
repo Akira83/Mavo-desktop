@@ -93,8 +93,8 @@ var MainMenu = {};
   };
   
   MainMenu.runAnalysis = function(){
-	  
+	  var model = new iStarModel();
+	  model.setModel(App.graph);
 	  console.log("Get model");
-	  console.log(JSON.stringify(App.graph));
-	  
+	  console.log(JSON.stringify(model.getModel()));
   }
