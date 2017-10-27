@@ -4,7 +4,7 @@ import java.io.FileReader;
 
 import com.google.gson.Gson;
 
-import ca.uoft.cs.mavo.z3solver.Z3Solver;
+import ca.uoft.cs.mavo.pojo.IStarModel;
 
 /**
  * SolveModelTest 
@@ -17,30 +17,23 @@ public class SolveModel {
 	
 	public static boolean DEVELOP = true;
 	
-	/**
-	 * This method is responsible to execute all steps to generate the analysis file.
-	 * @param args
-	 * As parameters it receives the name of the file to be created.
-	 */
 	public static void main(String[] args) {
-
-		//This is the default filePath to be executed if no file is pass through parameters
-		String filePath;
-		if(SolveModel.DEVELOP) {
-			filePath = "temp/"; 				
-		}else {
-			filePath = "/u/marcel/public_html/mavo/cgi-bin/temp/"; 						
-		}
-		String inputFile = "default.json";
-				
+		String filePath = "../models/";
+		String inputFile = "model.json";
+		String smtFile = "model.smt2";
+		String outputFile = "result.json";		
+		
 		try {
 			//creating the backend model to be analysed
-			InputFile inputModel = getModelFromJson(filePath + inputFile);
+			IStarModel iStarModel = getModelFromJson(filePath + inputFile);
+			
+			SMTConverter smtConverter = new SMTConverter();
+			smtConverter.convert(filePath + smtFile, iStarModel);
 			
 			//Analyse the model
 			Z3Solver solver = new Z3Solver();
-			solver.solveModel(inputModel);		
-	
+			solver.solveModel(filePath + smtFile, filePath + outputFile);
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		} 
@@ -53,11 +46,11 @@ public class SolveModel {
 	 * @return
 	 * ModelSpecPojo backend model
 	 */
-	private static InputFile getModelFromJson(String filePath) {
+	private static IStarModel getModelFromJson(String filePath) {
 		try{
 		Gson gson = new Gson();		
-		InputFile inputFile = gson.fromJson(new FileReader(filePath), InputFile.class);
-		return inputFile;
+		IStarModel iStarModel = gson.fromJson(new FileReader(filePath), IStarModel.class);
+		return iStarModel;
 		}catch(Exception e){
 			throw new RuntimeException("Error in getModelFromJson() method: /n" + e.getMessage());
 		}

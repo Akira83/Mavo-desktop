@@ -1,4 +1,4 @@
-package ca.uoft.cs.mavo;
+package ca.uoft.cs.mavo.pojo;
 
 public class IStarActor {
 	private String id;

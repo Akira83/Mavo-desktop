@@ -1,11 +1,11 @@
-package ca.uoft.cs.mavo;
+package ca.uoft.cs.mavo.pojo;
 
 public class IStarLink {
 
 	private String source;
 	private String target;
 	private String type;
-	private String annotation;
+	private String[] annotation;
 	private Boolean added = false;
 	
 	public String getSource() {
@@ -32,11 +32,11 @@ public class IStarLink {
 		this.type = type;
 	}
 	
-	public String getAnnotation() {
+	public String[] getAnnotation() {
 		return annotation;
 	}
 	
-	public void setAnnotation(String annotation) {
+	public void setAnnotation(String[] annotation) {
 		this.annotation = annotation;
 	}
 

@@ -1,4 +1,4 @@
-package ca.uoft.cs.mavo;
+package ca.uoft.cs.mavo.pojo;
 
 import java.util.ArrayList;
 
@@ -7,9 +7,9 @@ public class IStarNode {
 	private String actorId;
 	private String name;
 	private String type;
-	private String annotation;
+	private String[] annotation;
 	private String maxsize;
-	private String satValue;
+	private String[] satValue;
 	
 	public String getId() {
 		return id;
@@ -43,11 +43,11 @@ public class IStarNode {
 		this.type = type;
 	}
 	
-	public String getAnnotation() {
+	public String[] getAnnotation() {
 		return annotation;
 	}
 
-	public void setAnnotation(String annotation) {
+	public void setAnnotation(String[] annotation) {
 		this.annotation = annotation;
 	}
 
@@ -59,11 +59,11 @@ public class IStarNode {
 		this.maxsize = maxsize;
 	}
 	
-	public String getSatValue() {
+	public String[] getSatValue() {
 		return satValue;
 	}
 
-	public void setSatValue(String satValue) {
+	public void setSatValue(String[] satValue) {
 		this.satValue = satValue;
 	}
 
