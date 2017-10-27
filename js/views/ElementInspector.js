@@ -19,6 +19,9 @@ var ElementInspector = Backbone.View.extend({
       '<input type="checkbox" class="mavo" id="set" value="S">Set<br>',
       '<input type="checkbox" class="mavo" id="may" value="M">May<br>',
       '<input type="checkbox" class="mavo" id="var" value="V">Variable<br>',
+      '<div id = "set-size">',
+	  '<label>Set Size</label>',
+	  '<input id="mavo-size" type="number" name="quantity" min="1" max="5">',
 	  '</div>',
   ].join(''),
   
@@ -37,7 +40,8 @@ var ElementInspector = Backbone.View.extend({
 	'keyup #elementName': 'changeName',
 	'change .sat-values' : 'updateSatValues',	 
     'change .mavo':'updateMavo',
-    'change #actorType': 'actorType'
+    'change #actorType': 'actorType',
+	'change #mavo-size': 'updateSetSize'
   },
   
   //Initializing Element Inspector using the template.
@@ -70,9 +74,18 @@ var ElementInspector = Backbone.View.extend({
     })
      
     //Initial MAVO annotations
+    this.$("#set-size").hide();
     this.$('.mavo').each(function(){
     	if(cell.attr(".mavo/annotation").indexOf($(this).val()) > -1){
     		$(this).prop('checked', true);
+    		if($(this).val() == "S" && $(this).prop('checked')){
+    			$("#set-size").show();
+    			if(cell.attr(".mavo/set-size")){
+        			$("#mavo-size").val(cell.attr(".mavo/set-size"));
+    			}else{
+        			$("#mavo-size").val(3);    				
+    			}
+    		}
     	}
     })    
   },
@@ -118,7 +131,14 @@ var ElementInspector = Backbone.View.extend({
 				cell.attr(".mavo/annotation").splice(cell.attr(".mavo/annotation").indexOf(removeItem), 1);
 			  }
 		  }
-	  })
+	  });
+	  if(cell.attr(".mavo/annotation").indexOf("S") > -1){
+		  $("#set-size").show();
+		  $("#mavo-size").val(3);
+	  }else{
+		  $("#set-size").hide();
+		  $("#mavo-size").val(1);
+	  }
   },  
   actorType: function(){
 	  var cell = this._cellView.model;
@@ -170,6 +190,10 @@ var ElementInspector = Backbone.View.extend({
 	      }
 	      return;
 	    }
+  },
+  updateSetSize: function(){
+	  var cell = this._cellView.model;
+	  cell.attr(".mavo/set-size", $("#mavo-size").val());
   },
   clear: function(){
     this.$el.html('');
