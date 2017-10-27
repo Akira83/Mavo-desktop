@@ -120,8 +120,9 @@ function iStarModel(){
 				/**
 				 * INITIAL VALUE
 				 */
-			  	var satValue = App.satvalues[elements[i].attr(".satvalue/value")];
-			  	
+//			  	var satValue = App.satvalues[elements[i].attr(".satvalue/values")];
+			  	var satValue = elements[i].attr(".satvalue/values");
+						  	
 			  	/**
 			  	 * NODE NAME
 			  	 */
@@ -129,9 +130,9 @@ function iStarModel(){
 				var name = elements[i].attr(".name/text").replace(/\n/g, " ");
 				
 				//Getting mavo annotations
-				var annotation = (elements[i].attr(".mavo/text")||"");
+				var annotation = (elements[i].attr(".mavo/annotation")||"");
 								
-				var maxsize = (elements[i].attr(".mavo/size") || "1");
+				var maxsize = (elements[i].attr(".mavo/set-size") || "1");
 				
 				/**
 				 * CREATING OBJECT

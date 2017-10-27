@@ -93,8 +93,16 @@ var MainMenu = {};
   };
   
   MainMenu.runAnalysis = function(){
+	  var fs = require('fs');
 	  var model = new iStarModel();
 	  model.setModel(App.graph);
-	  console.log("Get model");
-	  console.log(JSON.stringify(model.getModel()));
+	  
+	  var filename = "model.json"
+	  
+	  fs.writeFile("./models/"+filename, JSON.stringify(model.getModel(), null, "\t"), function(err) {
+	      if(err) {
+	          return console.log(err);
+	      }
+	  });	  
+
   }
