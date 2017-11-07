@@ -15,14 +15,15 @@ public class IStarConverter {
 	 * Path to the file with the frontend models
 	 * @return
 	 * ModelSpecPojo backend model
+	 * @throws Exception 
 	 */
-	public IStarModel getModelFromJson(String filePath) {
+	public IStarModel getModelFromJson(String filePath) throws Exception {
 		try{
 		Gson gson = new Gson();		
 		IStarModel iStarModel = gson.fromJson(new FileReader(filePath), IStarModel.class);
 		return iStarModel;
 		}catch(Exception e){
-			throw new RuntimeException("Error in getModelFromJson() method: /n" + e.getMessage());
+			throw new Exception("Error in getModelFromJson() method: /n" + e.getMessage());
 		}
 	}
 	
