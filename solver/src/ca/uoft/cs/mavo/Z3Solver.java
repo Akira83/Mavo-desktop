@@ -99,7 +99,7 @@ public class Z3Solver {
 
 	private String executeSMT2File(String smtFilePath) {
 		String z3Path;
-		if(SolveModel.DEVELOP) {
+		if(Main.DEVELOP) {
 			z3Path = "z3";			
 		}else {
 			z3Path = "/u/marcel/z3-4.5.0-x64-ubuntu-14.04/bin/z3";
